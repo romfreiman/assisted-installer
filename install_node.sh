@@ -1,7 +1,8 @@
 #!/usr/local/bin/bash
 set -euo pipefail
 
-MACHINE_CONFIG_IMAGE=docker.io/eranco/mcd:latest
+# Change this to the MCD image from the relevant openshift release image
+MACHINE_CONFIG_IMAGE=quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:301586e92bbd07ead7c5d3f342899e5923d4ef2e0f1c0cf08ecaae96568d16ed
 INSTALL_DIR=/opt/insall-dir
 podman_run() {
   nsenter_run podman run --net=host "${@}"
@@ -20,6 +21,7 @@ bootstrap() {
   echo "Writing bootstrap ignition to disk"
   podman_run \
     --volume "/:/rootfs:rw" \
+    --volume "/usr/bin/rpm-ostree:/usr/bin/rpm-ostree" \
     --privileged \
     --entrypoint /machine-config-daemon \
     "${MACHINE_CONFIG_IMAGE}" \
