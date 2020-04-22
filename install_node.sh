@@ -18,6 +18,9 @@ bootstrap() {
   echo "Get bootstrap.ign"
   nsenter_run curl -s $S3_URL/$BUCKET/$CLUSTER_ID/bootstrap.ign -o $INSTALL_DIR/bootstrap.ign
 
+  echo "Write pull secret"
+  nsenter_run mkdir -p /root/.docker
+  echo $PULL_SECRET > /root/.docker/config.json
   echo "Writing bootstrap ignition to disk"
   podman_run \
     --volume "/:/rootfs:rw" \
