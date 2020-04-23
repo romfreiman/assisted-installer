@@ -1,4 +1,4 @@
-# Openshift assisted-isntaller
+# Openshift assisted-installer
 
 The Openshift assisted installer handles provisioning of new machines and execute the installation logic on these machines to create an openshift cluster. \
 The aim of assisted insaller is to reduce requirements and allow easy Day 1 bare metal installation.  
